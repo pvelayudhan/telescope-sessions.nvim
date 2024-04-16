@@ -4,15 +4,23 @@ Forked from: https://github.com/JoseConseco/telescope_sessions_picker.nvim
 
 This fork is pared down simply to create, delete, and open sessions with Telescope.
 
-## Install
+## Lazy
 
-```
-use 'JoseConseco/telescope_sessions_picker.nvim'
+1. Add the plugin to Telescope's dependencies:
+
+```lua
+{
+  "nvim-telescope/telescope.nvim",
+  cmd = { "Telescope" },
+  dependencies = {
+    {
+        "pvelayudhan/telescope-sessions.nvim",
+    },
+  },
+}
 ```
 
-## Configuration
-This extension can be configured using `extensions` field inside Telescope
-setup function.
+2. Setup and load the extension
 
 ```lua
 require'telescope'.setup {
@@ -22,6 +30,7 @@ require'telescope'.setup {
         }
     },
 }
+
 require('telescope').load_extension('sessions_picker')
 ```
 
