@@ -1,6 +1,6 @@
 # Telescope Sessions
 
-Forked from: https://github.com/JoseConseco/telescope_sessions_picker.nvim
+Forked from: https://github.com/JoseConseco/telescope_sessions.nvim
 
 This fork is pared down simply to create, delete, and open sessions with Telescope.
 
@@ -25,13 +25,13 @@ This fork is pared down simply to create, delete, and open sessions with Telesco
 ```lua
 require'telescope'.setup {
     extensions = {
-        sessions_picker = {
+        sessions = {
             sessions_dir = vim.fn.stdpath('data') ..'/session/',
         }
     },
 }
 
-require('telescope').load_extension('sessions_picker')
+require('telescope').load_extension('sessions')
 ```
 
 ## Usage
@@ -39,10 +39,7 @@ require('telescope').load_extension('sessions_picker')
 Call the session picker with:
 
 ```viml
-:Telescope sessions_picker
-
-"Using lua function
-lua require('telescope').extensions.sessions_picker.sessions_picker()
+:Telescope sessions
 ```
 
 Then use one of the commands below:
