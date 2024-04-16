@@ -51,7 +51,7 @@ local del_session = function(prompt_bufnr)
     end
 end
 
-local sessions_picker = function(projects, opts)
+local sessions = function(projects, opts)
     pickers.new(opts, {
         prompt_title = 'Select a session',
         results_title = 'Sessions',
@@ -80,7 +80,7 @@ M.setup = function(ext_config)
     sessions_dir = ext_config.sessions_dir or vim.fn.stdpath('data') ..'/session/'
 end
 
-M.run_sessions_picker = function(opts)
+M.run_sessions = function(opts)
     opts = opts or {}
     local handle = vim.loop.fs_scandir(sessions_dir)
     if handle == nil then
@@ -103,7 +103,7 @@ M.run_sessions_picker = function(opts)
         end
     end
 
-    sessions_picker(existing_projects, opts)
+    sessions(existing_projects, opts)
 end
 
 return M
