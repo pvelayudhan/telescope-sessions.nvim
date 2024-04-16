@@ -1,7 +1,8 @@
-# Telescope Sessions loader
-Load nvim session files from target directory
+# Telescope Sessions
 
-![Session Thumb](./img/./session_picker.jpg)
+Forked from: https://github.com/JoseConseco/telescope_sessions_picker.nvim
+
+This fork is pared down simply to create, delete, and open sessions with Telescope.
 
 ## Install
 
@@ -15,25 +16,19 @@ setup function.
 
 ```lua
 require'telescope'.setup {
-  -- your existing tele config
-  extensions = {
-    sessions_picker = {
-      sessions_dir = vim.fn.stdpath('data') ..'/session/',  -- same as '/home/user/.local/share/nvim/session'
-    }
-    -- other tele extensions configs
-  },
+    extensions = {
+        sessions_picker = {
+            sessions_dir = vim.fn.stdpath('data') ..'/session/',
+        }
+    },
 }
 require('telescope').load_extension('sessions_picker')
 ```
 
-## Hotkeys
-`<CR>` - open Session file (same as :so your_session_file)
+## Usage
 
-`<DEL>` - remove selected session file (not the project file, just session file!)
+Call the session picker with:
 
-`<C-n>` - create new session from cwd.
-
-## Available commands
 ```viml
 :Telescope sessions_picker
 
@@ -41,5 +36,12 @@ require('telescope').load_extension('sessions_picker')
 lua require('telescope').extensions.sessions_picker.sessions_picker()
 ```
 
+Then use one of the commands below:
 
+`<CR>` - Open session
 
+`<DEL>` - Delete session
+
+`<C-n>` - Create new session
+
+`<C-s>` - Save session
