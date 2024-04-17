@@ -17,6 +17,15 @@ local sessions_dir = vim.fn.stdpath('data') ..'/session/'
 local load_session = function(prompt_bufnr)
     local dir = actions_state.get_selected_entry(prompt_bufnr).value
     actions.close(prompt_bufnr, true)
+    -- Wipe all buffers before loading a session
+    local i = 1
+    local n = vim.api.nvim_call_function('bufnr', {'$'})
+    while i < n do
+        if vim.api.nvim_buf_is_valid(i) then
+            vim.api.nvim_command('bw ' .. i)
+        end
+        i = i + 1
+    end
     vim.api.nvim_command('silent source ' .. dir)
 end
 
@@ -27,7 +36,12 @@ local new_session = function(prompt_bufnr)
         return
     end
     local session_file = sessions_dir..'/'..picked_name
+    local tree_open = require'nvim-tree.view'.is_visible()
+    vim.fn.execute("NvimTreeClose") -- Ensure NvimTree is closed
     vim.fn.execute("mksession! "..session_file)
+    if tree_open then
+        vim.fn.execute("NvimTreeOpen") -- Reopen NvimTree if it was open
+    end
     vim.api.nvim_echo({{'Created: '..session_file,}}, true, {})
 end
 
@@ -37,7 +51,12 @@ local save_current = function(prompt_bufnr)
     if current_sdir == '' then
         return
     end
+    local tree_open = require'nvim-tree.view'.is_visible()
+    vim.fn.execute("NvimTreeClose") -- Ensure NvimTree is closed
     vim.fn.execute("mksession! "..current_sdir)
+    if tree_open then
+        vim.fn.execute("NvimTreeOpen") -- Reopen NvimTree if it was open
+    end
     vim.api.nvim_echo({{'Updated: '..current_sdir,}}, true, {})
 end
 
